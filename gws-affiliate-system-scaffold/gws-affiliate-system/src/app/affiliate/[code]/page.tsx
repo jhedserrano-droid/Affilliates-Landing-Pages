@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { LandingPage } from "@/components/landing-page";
-import { affiliateSlots, resolveAffiliate } from "@/lib/affiliates";
+import {
+  affiliateCodes,
+  buildAffiliateRoute,
+  resolveAffiliate,
+} from "@/lib/affiliates";
 
 export const dynamicParams = true;
 
 export function generateStaticParams() {
-  return Object.keys(affiliateSlots).map((code) => ({ code }));
+  return affiliateCodes.map((code) => ({ code }));
 }
 
 export const metadata: Metadata = {
@@ -24,7 +28,7 @@ export default async function AffiliateLandingPage({
   return (
     <LandingPage
       attributionCode={affiliate.code}
-      routePath={`/affiliate/${code}`}
+      routePath={buildAffiliateRoute(code)}
     />
   );
 }
