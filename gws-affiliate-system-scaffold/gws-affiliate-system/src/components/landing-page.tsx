@@ -1,223 +1,89 @@
+import { BrandLogo } from "@/components/brand-logo";
 import { LeadForm } from "@/components/lead-form";
 import { landingContent } from "@/lib/content";
 
-type Props = {
-  attributionCode: string;
-  routePath: string;
-};
+type Props = { attributionCode: string; routePath: string };
 
-const outcomes = [
-  {
-    number: "01",
-    title: "Get discovered",
-    body: "Strengthen the places buyers use to find and understand your business, from search to AI-assisted discovery.",
-  },
-  {
-    number: "02",
-    title: "Capture intent",
-    body: "Create a cleaner path from interest to inquiry without unnecessary friction or confusing handoffs.",
-  },
-  {
-    number: "03",
-    title: "Move faster",
-    body: "Reduce the gap between a new inquiry and the next useful action for your team and your customer.",
-  },
-  {
-    number: "04",
-    title: "Keep momentum",
-    body: "Connect follow-up, conversion and retention so opportunities do not disappear between disconnected systems.",
-  },
+const journey = [
+  { number: "01", label: "Contact details", title: "Get introduced." },
+  { number: "02", label: "Business context", title: "Tell us more." },
+  { number: "03", label: "Confirmation", title: "Thank you." },
 ];
 
 export function LandingPage({ attributionCode, routePath }: Props) {
+  const ending = "to grow.";
+  const introduction = landingContent.headline.endsWith(ending)
+    ? landingContent.headline.slice(0, -ending.length)
+    : null;
+
   return (
-    <main className="shell">
+    <div className="shell" id="top">
+      <a className="skip-link" href="#inquiry">Skip to the inquiry form</a>
+      <div className="review-notice" role="note">
+        Design review build. Native Mavis capture is not connected; Step 1 is not saved to CRM.
+      </div>
+
       <header className="site-header">
         <div className="container nav-shell">
-          <a className="brand-lockup" href="#top" aria-label="GrowthWorks Systems home">
-            <span className="brand-mark" aria-hidden="true">
-              <span className="brand-mark-core" />
-            </span>
-            <span className="brand-copy">
-              <strong>GrowthWorks</strong>
-              <span>Systems</span>
-            </span>
+          <a className="brand-lockup" href="#top" aria-label="GrowthWorks Systems">
+            <BrandLogo />
           </a>
-
-          <a className="header-cta" href="#inquiry">
-            Start your review
-            <span aria-hidden="true">↗</span>
-          </a>
+          <span className="header-label">Your business. <span>Our starting point.</span></span>
         </div>
       </header>
 
-      <section className="hero" id="top">
-        <div className="hero-grid-overlay" aria-hidden="true" />
-        <div className="hero-glow hero-glow-one" aria-hidden="true" />
-        <div className="hero-glow hero-glow-two" aria-hidden="true" />
+      <main className="hero">
+        <div className="hero-atmosphere" aria-hidden="true">
+          <span className="atmosphere-plane plane-one" />
+          <span className="atmosphere-plane plane-two" />
+          <span className="atmosphere-plane plane-three" />
+        </div>
 
         <div className="container hero-layout">
-          <div className="hero-copy">
-            <div className="eyebrow">
-              <span className="eyebrow-dot" aria-hidden="true" />
-              {landingContent.eyebrow}
-            </div>
-
-            <h1>
-              Growth should feel
-              <span className="headline-accent"> connected.</span>
+          <section className="hero-copy" aria-labelledby="hero-title">
+            <p className="eyebrow"><span aria-hidden="true" />{landingContent.eyebrow}</p>
+            <h1 id="hero-title">
+              {introduction === null ? landingContent.headline : (
+                <>{introduction}<span className="headline-finish">{ending}</span></>
+              )}
             </h1>
-
             <p className="hero-lede">{landingContent.supporting}</p>
+            <p className="hero-trust">{landingContent.trustStatement}</p>
 
-            <div className="hero-actions">
-              <a className="button button-primary" href="#inquiry">
-                Start with your business
-                <span className="button-icon" aria-hidden="true">→</span>
-              </a>
-              <a className="text-link" href="#system">
-                See the system
-                <span aria-hidden="true">↓</span>
-              </a>
-            </div>
+            <ol className="journey" aria-label="The three steps of your inquiry">
+              {journey.map((item) => (
+                <li className="journey-card" key={item.number}>
+                  <div className="journey-meta"><span>{item.number}</span><span>{item.label}</span></div>
+                  <p>{item.title}</p>
+                  <span className="journey-joint" aria-hidden="true" />
+                </li>
+              ))}
+            </ol>
+          </section>
 
-            <div className="hero-trust">
-              <span className="trust-line" aria-hidden="true" />
-              <p>{landingContent.trustStatement}</p>
-            </div>
-          </div>
-
-          <div className="system-visual" aria-label="Connected Revenue Infrastructure illustration">
-            <div className="visual-orbit visual-orbit-large" />
-            <div className="visual-orbit visual-orbit-medium" />
-            <div className="visual-orbit visual-orbit-small" />
-
-            <div className="visual-node node-top">
-              <span className="node-index">01</span>
-              <strong>Visibility</strong>
-              <small>Be found</small>
-            </div>
-
-            <div className="visual-node node-right">
-              <span className="node-index">02</span>
-              <strong>Capture</strong>
-              <small>Catch intent</small>
-            </div>
-
-            <div className="visual-node node-bottom">
-              <span className="node-index">03</span>
-              <strong>Response</strong>
-              <small>Move faster</small>
-            </div>
-
-            <div className="visual-node node-left">
-              <span className="node-index">04</span>
-              <strong>Growth</strong>
-              <small>Compound</small>
-            </div>
-
-            <div className="visual-core">
-              <span className="visual-core-kicker">Revenue</span>
-              <strong>Infrastructure</strong>
-              <span className="visual-core-caption">Nine domains. One system.</span>
-            </div>
-          </div>
+          <section className="capture-panel" id="inquiry" aria-label="Business inquiry">
+            <LeadForm attributionCode={attributionCode} routePath={routePath} />
+            <div className="panel-caption" aria-hidden="true"><span>GrowthWorks Systems</span><span>Business inquiry</span></div>
+          </section>
         </div>
+      </main>
 
-        <div className="container signal-strip" aria-label="GrowthWorks Systems approach">
-          <span>Visibility</span>
-          <span>Lead Capture</span>
-          <span>Response</span>
-          <span>Conversion</span>
-          <span>Retention</span>
-          <span>AI Visibility</span>
+      <aside className="value-strip" aria-label="The GrowthWorks approach">
+        <div className="container value-strip-inner">
+          <span className="value-index" aria-hidden="true">GWS /</span>
+          <p>{landingContent.valueStatement}</p>
         </div>
-      </section>
-
-      <section className="system-section" id="system">
-        <div className="container">
-          <div className="section-heading">
-            <div>
-              <div className="eyebrow">
-                <span className="eyebrow-dot" aria-hidden="true" />
-                The business problem
-              </div>
-              <h2>Most growth leaks happen between the tools.</h2>
-            </div>
-            <p>
-              {landingContent.valueStatement} The goal is not another isolated tactic. It is a
-              stronger operating path from discovery through follow-up.
-            </p>
-          </div>
-
-          <div className="outcome-grid">
-            {outcomes.map((outcome) => (
-              <article className="outcome-card" key={outcome.number}>
-                <div className="outcome-topline">
-                  <span>{outcome.number}</span>
-                  <span className="outcome-arrow" aria-hidden="true">↗</span>
-                </div>
-                <h3>{outcome.title}</h3>
-                <p>{outcome.body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="diagnostic-section" id="inquiry">
-        <div className="diagnostic-glow" aria-hidden="true" />
-        <div className="container diagnostic-layout">
-          <div className="diagnostic-copy">
-            <div className="eyebrow eyebrow-light">
-              <span className="eyebrow-dot" aria-hidden="true" />
-              Start here
-            </div>
-            <h2>A diagnostic, not a pitch.</h2>
-            <p>
-              Give us the essentials first. Then tell us what is getting in the way of growth.
-              The experience stays focused on your business, not a preselected service.
-            </p>
-
-            <div className="diagnostic-points">
-              <div>
-                <span className="diagnostic-point-index">01</span>
-                <span>Share the essentials</span>
-              </div>
-              <div>
-                <span className="diagnostic-point-index">02</span>
-                <span>Tell us what matters</span>
-              </div>
-              <div>
-                <span className="diagnostic-point-index">03</span>
-                <span>We review the whole path</span>
-              </div>
-            </div>
-          </div>
-
-          <LeadForm attributionCode={attributionCode} routePath={routePath} />
-        </div>
-      </section>
+      </aside>
 
       <footer className="footer">
         <div className="container footer-inner">
-          <a className="brand-lockup footer-brand" href="#top" aria-label="GrowthWorks Systems">
-            <span className="brand-mark" aria-hidden="true">
-              <span className="brand-mark-core" />
-            </span>
-            <span className="brand-copy">
-              <strong>GrowthWorks</strong>
-              <span>Systems</span>
-            </span>
-          </a>
-
-          <div className="footer-meta">
-            <span>© 2026 GrowthWorks Systems LLC</span>
-            <a href="https://www.growthworks-systems.com/privacy">Privacy</a>
-            <a href="https://www.growthworks-systems.com/terms">Terms</a>
-          </div>
+          <span>&copy; 2026 GrowthWorks Systems LLC</span>
+          <nav className="footer-links" aria-label="Legal">
+            <a href="https://www.growthworks-systems.com/privacy">Privacy Policy</a>
+            <a href="https://www.growthworks-systems.com/terms">Terms &amp; Conditions</a>
+          </nav>
         </div>
       </footer>
-    </main>
+    </div>
   );
 }
