@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "GrowthWorks Systems",
-  description: "GrowthWorks Systems inquiry and growth review.",
+  title: "GrowthWorks Systems | Business Growth Review",
+  description:
+    "A focused GrowthWorks Systems business review for founder-led service businesses looking to strengthen visibility, lead capture, response, conversion, and follow-up.",
   robots: { index: false, follow: false },
 };
 
