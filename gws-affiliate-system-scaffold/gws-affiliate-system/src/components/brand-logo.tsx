@@ -1,24 +1,21 @@
-"use client";
+import styles from "./brand-logo.module.css";
 
-import { useState } from "react";
+type Props = { compact?: boolean };
 
-/** The approved GWS asset, with a text fallback when its origin is unavailable. */
-export function BrandLogo() {
-  const [loaded, setLoaded] = useState(false);
-
+/** Official user-supplied GWS lockup, hosted with the application. */
+export function BrandLogo({ compact = false }: Props) {
   return (
-    <span className={loaded ? "brand-art is-loaded" : "brand-art"} aria-hidden="true">
+    <span className={`${styles.tile}${compact ? ` ${styles.compact}` : ""}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        className="brand-logo"
-        src="https://app.growthworks-systems.com/uploads/migrated/e6c07b62-2010-4171-a776-2b3e304cd3e7.png"
-        alt=""
-        width={184}
-        height={64}
-        onLoad={() => setLoaded(true)}
-        onError={() => setLoaded(false)}
+        className={styles.image}
+        src="/brand/growthworks-logo.webp"
+        alt="GrowthWorks Systems"
+        width={280}
+        height={222}
+        loading={compact ? "lazy" : "eager"}
+        decoding="async"
       />
-      <span className="brand-wordmark">GrowthWorks<small>Systems</small></span>
     </span>
   );
 }

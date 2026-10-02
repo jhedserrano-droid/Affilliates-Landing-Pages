@@ -1,0 +1,30 @@
+/* Keep the supplied dark-ink logo legible without recoloring it. */
+.tile {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 148px;
+  margin-block: 12px;
+  padding: 8px;
+  line-height: 0;
+  background: #f3f0df;
+  border: 1px solid #d5d2c5;
+  border-radius: 0;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: none;
+}
+
+.compact {
+  width: 112px;
+  margin-block: 16px;
+}
+
+@media (max-width: 540px) {
+  .tile { width: 120px; }
+  .compact { width: 112px; margin-block: 0 8px; }
+}

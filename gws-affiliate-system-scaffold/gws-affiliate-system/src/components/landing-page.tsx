@@ -77,6 +77,9 @@ export function LandingPage({ attributionCode, routePath }: Props) {
 
       <footer className="footer">
         <div className="container footer-inner">
+          <a className="brand-lockup" href="#top" aria-label="GrowthWorks Systems">
+            <BrandLogo compact />
+          </a>
           <span>&copy; 2026 GrowthWorks Systems LLC</span>
           <nav className="footer-links" aria-label="Legal">
             <a href="https://www.growthworks-systems.com/privacy">Privacy Policy</a>
