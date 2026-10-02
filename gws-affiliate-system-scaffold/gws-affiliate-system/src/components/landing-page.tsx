@@ -1,8 +1,9 @@
+import type { ReactNode } from "react";
 import { BrandLogo } from "@/components/brand-logo";
 import { LeadForm } from "@/components/lead-form";
 import { landingContent } from "@/lib/content";
 
-type Props = { attributionCode: string; routePath: string };
+type Props = { attributionCode: string; routePath: string; heroSupplement?: ReactNode };
 
 const journey = [
   { number: "01", label: "Contact details", title: "Get introduced." },
@@ -10,7 +11,7 @@ const journey = [
   { number: "03", label: "Confirmation", title: "Thank you." },
 ];
 
-export function LandingPage({ attributionCode, routePath }: Props) {
+export function LandingPage({ attributionCode, routePath, heroSupplement }: Props) {
   const ending = "to grow.";
   const introduction = landingContent.headline.endsWith(ending)
     ? landingContent.headline.slice(0, -ending.length)
@@ -49,6 +50,8 @@ export function LandingPage({ attributionCode, routePath }: Props) {
             </h1>
             <p className="hero-lede">{landingContent.supporting}</p>
             <p className="hero-trust">{landingContent.trustStatement}</p>
+
+            {heroSupplement}
 
             <ol className="journey" aria-label="The three steps of your inquiry">
               {journey.map((item) => (

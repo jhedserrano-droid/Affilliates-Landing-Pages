@@ -1,0 +1,115 @@
+/* Owner-page styles are isolated. The affiliate template keeps its original UI. */
+.introduction {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: 350px;
+  margin: 38px 0 0;
+  overflow: hidden;
+  border: 1px solid #343434;
+  background: linear-gradient(130deg, #141414 0%, #0c0c0c 62%, #111111 100%);
+  box-shadow: 0 22px 46px #0005;
+}
+.atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 79% 43%, #8a1f2440, transparent 57%),
+    linear-gradient(150deg, transparent 40%, #f3f0df08 41%, transparent 42%);
+}
+.connector {
+  position: absolute;
+  width: 100px;
+  height: 84px;
+  left: 34%;
+  bottom: 52px;
+  border-left: 1px solid #8a1f24;
+  border-bottom: 1px solid #8a1f24;
+  opacity: .65;
+  box-shadow: -5px 7px 22px #8a1f241a;
+  z-index: -1;
+  pointer-events: none;
+}
+.connector::before {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  top: -2px;
+  left: -3px;
+  background: #8a1f24;
+  box-shadow: 0 0 14px #8a1f2466;
+}
+.portrait {
+  position: absolute;
+  right: -3px;
+  bottom: 0;
+  width: 62%;
+  max-width: 300px;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom right;
+  filter: drop-shadow(-9px 4px 16px #0008) drop-shadow(2px 0 3px #8a1f2430);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 83%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 83%, transparent 100%);
+}
+.caption {
+  position: relative;
+  z-index: 1;
+  width: 46%;
+  padding: 58px 0 42px 26px;
+}
+.eyebrow {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.7;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.caption h2 {
+  margin: 14px 0 12px;
+  font-size: clamp(32px, 3vw, 43px);
+  font-weight: 500;
+  letter-spacing: -.055em;
+  line-height: 1.06;
+  color: var(--cream);
+}
+.caption p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.8; }
+.rule { display: block; width: 30px; height: 2px; margin: 26px 0 20px; background: var(--maroon); }
+.caption .message { color: var(--cream); font-size: 13px; line-height: 1.7; }
+@media (max-width: 1120px) and (min-width: 881px) {
+  .introduction { min-height: 315px; }
+  .caption { padding-left: 20px; padding-top: 45px; width: 47%; }
+  .portrait { width: 59%; }
+  .caption h2 { font-size: 33px; }
+}
+@media (max-width: 880px) {
+  .introduction { max-width: 620px; min-height: 330px; margin-top: 28px; }
+  .caption { padding-top: 48px; }
+}
+@media (max-width: 540px) {
+  .introduction { min-height: 270px; margin-top: 26px; }
+  .caption { width: 47%; padding: 32px 0 30px 17px; }
+  .eyebrow { font-size: 8px; letter-spacing: .1em; }
+  .caption h2 { font-size: 32px; }
+  .caption p { font-size: 10px; }
+  .caption .message { font-size: 11px; }
+  .portrait { width: 61%; right: -8px; }
+  .rule { margin: 20px 0 16px; }
+  .connector { bottom: 42px; left: 37%; }
+}
+@media (max-width: 360px) {
+  .introduction { min-height: 245px; }
+  .caption { padding-left: 14px; }
+  .caption h2 { font-size: 29px; }
+  .portrait { right: -12px; }
+}
+@media (forced-colors: active) {
+  .introduction { border-color: CanvasText; }
+  .atmosphere, .connector { display: none; }
+  .caption h2, .caption p, .eyebrow { color: CanvasText; }
+  .portrait { filter: none; }
+}
