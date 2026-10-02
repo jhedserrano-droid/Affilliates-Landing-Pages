@@ -32,6 +32,7 @@ export function LeadForm({ attributionCode, routePath }: Props) {
   const [step, setStep] = useState(1);
   const [state, setState] = useState<FormState>("idle");
   const [tracking, setTracking] = useState<TrackingContext>(emptyTracking);
+  const [contactData, setContactData] = useState<Record<string, string>>({});
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
 
   useEffect(() => {
@@ -54,6 +55,10 @@ export function LeadForm({ attributionCode, routePath }: Props) {
 
     if (!form.reportValidity()) return;
 
+    const data = Object.fromEntries(
+      Array.from(new FormData(form).entries()).map(([key, value]) => [key, String(value)]),
+    );
+    setContactData(data);
     setState("idle");
     setStep(2);
 
@@ -66,17 +71,10 @@ export function LeadForm({ attributionCode, routePath }: Props) {
     event.preventDefault();
     setState("submitting");
 
-    const firstForm = document.getElementById("lead-contact-form") as HTMLFormElement | null;
     const qualificationForm = event.currentTarget;
-
-    if (!firstForm || !firstForm.reportValidity()) {
-      setStep(1);
-      setState("error");
-      return;
-    }
-
-    const contactData = Object.fromEntries(new FormData(firstForm).entries());
-    const qualificationData = Object.fromEntries(new FormData(qualificationForm).entries());
+    const qualificationData = Object.fromEntries(
+      Array.from(new FormData(qualificationForm).entries()).map(([key, value]) => [key, String(value)]),
+    );
 
     try {
       const response = await fetch("/api/inquiry", {
@@ -97,8 +95,8 @@ export function LeadForm({ attributionCode, routePath }: Props) {
         return;
       }
 
-      firstForm.reset();
       qualificationForm.reset();
+      setContactData({});
       setSelectedInterests([]);
       setState("success");
       setStep(3);
