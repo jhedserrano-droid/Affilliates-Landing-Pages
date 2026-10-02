@@ -1,11 +1,23 @@
 import { NextResponse } from "next/server";
 import { resolveAffiliate } from "@/lib/affiliates";
-import { isValidEmail, isValidHttpUrl, normalizeText, type LeadPayload } from "@/lib/lead";
+import {
+  isValidEmail,
+  isValidHttpUrl,
+  normalizeStringArray,
+  normalizeText,
+  type LeadPayload,
+} from "@/lib/lead";
 
 type InquiryRequest = {
-  businessInformation?: unknown;
+  firstName?: unknown;
+  lastName?: unknown;
+  businessName?: unknown;
+  businessType?: unknown;
+  teamSize?: unknown;
+  serviceArea?: unknown;
+  priority?: unknown;
+  interests?: unknown;
   websiteUrl?: unknown;
-  fullName?: unknown;
   email?: unknown;
   phone?: unknown;
   attributionCode?: unknown;
@@ -28,27 +40,36 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "invalid_json" }, { status: 400 });
   }
 
-  // Honeypot: bots commonly fill visually hidden fields.
   if (normalizeText(body.companyFax, 80)) {
     return NextResponse.json({ ok: true }, { status: 202 });
   }
 
-  const businessInformation = normalizeText(body.businessInformation, 1200);
-  const websiteUrl = normalizeText(body.websiteUrl, 300);
-  const fullName = normalizeText(body.fullName, 160);
+  const firstName = normalizeText(body.firstName, 80);
+  const lastName = normalizeText(body.lastName, 80);
+  const businessName = normalizeText(body.businessName, 180);
   const email = normalizeText(body.email, 254).toLowerCase();
   const phone = normalizeText(body.phone, 80);
+  const websiteUrl = normalizeText(body.websiteUrl, 300);
+  const businessType = normalizeText(body.businessType, 160);
+  const teamSize = normalizeText(body.teamSize, 80);
+  const serviceArea = normalizeText(body.serviceArea, 200);
+  const priority = normalizeText(body.priority, 800);
+  const interests = normalizeStringArray(body.interests, 20, 120);
 
   const missing = [
-    ["businessInformation", businessInformation],
-    ["websiteUrl", websiteUrl],
-    ["fullName", fullName],
+    ["firstName", firstName],
+    ["lastName", lastName],
+    ["businessName", businessName],
     ["email", email],
-    ["phone", phone],
-  ].filter(([, value]) => !value).map(([field]) => field);
+  ]
+    .filter(([, value]) => !value)
+    .map(([field]) => field);
 
   if (missing.length) {
-    return NextResponse.json({ ok: false, error: "missing_fields", fields: missing }, { status: 400 });
+    return NextResponse.json(
+      { ok: false, error: "missing_fields", fields: missing },
+      { status: 400 },
+    );
   }
 
   if (!isValidEmail(email)) {
@@ -62,10 +83,18 @@ export async function POST(request: Request) {
   const requestedCode = normalizeText(body.attributionCode, 24) || "general";
   const resolved = resolveAffiliate(requestedCode === "general" ? null : requestedCode);
 
+  const businessInformation = [
+    businessName,
+    businessType ? `Business type: ${businessType}` : "",
+    priority ? `Priority: ${priority}` : "",
+  ]
+    .filter(Boolean)
+    .join(" | ");
+
   const lead: LeadPayload = {
     businessInformation,
     websiteUrl,
-    fullName,
+    fullName: `${firstName} ${lastName}`.trim(),
     email,
     phone,
     attributionCode: resolved.code,
@@ -80,6 +109,14 @@ export async function POST(request: Request) {
       term: normalizeText(body.utmTerm, 200),
       content: normalizeText(body.utmContent, 200),
     },
+    qualification: {
+      businessName,
+      businessType,
+      teamSize,
+      serviceArea,
+      priority,
+      interests,
+    },
   };
 
   const handoffUrl = process.env.LEAD_HANDOFF_WEBHOOK_URL;
@@ -88,14 +125,21 @@ export async function POST(request: Request) {
   if (!handoffUrl) {
     if (process.env.NODE_ENV === "production") {
       console.error("LEAD_HANDOFF_WEBHOOK_URL is missing in production");
-      return NextResponse.json({ ok: false, error: "handoff_not_configured" }, { status: 503 });
+      return NextResponse.json(
+        { ok: false, error: "handoff_not_configured" },
+        { status: 503 },
+      );
     }
 
     console.info("Lead captured in local development mode", lead);
-    return NextResponse.json({ ok: true, attributionCode: lead.attributionCode }, { status: 202 });
+    return NextResponse.json(
+      { ok: true, attributionCode: lead.attributionCode },
+      { status: 202 },
+    );
   }
 
   let response: Response;
+
   try {
     response = await fetch(handoffUrl, {
       method: "POST",
@@ -117,5 +161,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "handoff_failed" }, { status: 502 });
   }
 
-  return NextResponse.json({ ok: true, attributionCode: lead.attributionCode }, { status: 202 });
+  return NextResponse.json(
+    { ok: true, attributionCode: lead.attributionCode },
+    { status: 202 },
+  );
 }
