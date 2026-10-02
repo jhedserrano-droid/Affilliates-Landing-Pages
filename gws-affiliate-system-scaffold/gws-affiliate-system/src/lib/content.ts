@@ -1,31 +1,54 @@
 export const landingContent = {
   eyebrow: "GrowthWorks Systems",
-  headline: "Build a clearer path from visibility to revenue.",
+  headline: "Make it easier for your business to grow.",
   supporting:
-    "GrowthWorks Systems helps service businesses connect visibility, lead capture, response, conversion, and follow-up into one practical growth system.",
-  primaryCta: "Request a Growth Review",
-  secondaryCta: "See how it works",
-  outcomes: [
-    {
-      title: "Be easier to find",
-      body: "Strengthen the places prospects discover and evaluate your business.",
-    },
-    {
-      title: "Respond with less friction",
-      body: "Create a cleaner path from inquiry to timely, organized follow-up.",
-    },
-    {
-      title: "Convert more consistently",
-      body: "Connect the systems and messaging that move qualified opportunities forward.",
-    },
+    "Tell us a little about your business. We'll help you explore where attracting customers, responding to inquiries and keeping relationships moving could work better together.",
+  valueStatement:
+    "GrowthWorks Systems connects the steps between customer interest and consistent follow-up, starting with your business needs.",
+  trustStatement:
+    "We start by understanding your business, not asking you to choose a product.",
+  stepOne: {
+    kicker: "Step 1 of 3",
+    title: "Let's get introduced.",
+    body:
+      "Share your name, business and email so we can get to know you. Next, you can tell us where you would like support.",
+    submit: "Continue",
+    submitting: "Saving...",
+  },
+  stepTwo: {
+    kicker: "Step 2 of 3",
+    title: "What would you like us to know about your business?",
+    body:
+      "Thanks. We've saved your contact details. A little more context will help GrowthWorks Systems understand your priorities and prepare the right follow-up.",
+    helper:
+      "Share what you can. Choose Not sure if you would like help identifying where to start.",
+    submit: "Send Business Details",
+    submitting: "Saving...",
+  },
+  stepThree: {
+    kicker: "Step 3 of 3",
+    title: "Thank you. We've received your information.",
+    body:
+      "Thanks for taking the time to tell us about your business. GrowthWorks Systems will review your information and follow up as appropriate. We look forward to speaking with you.",
+  },
+  interests: [
+    { value: "google_discovery", label: "Help more customers find us on Google and local search" },
+    { value: "website_presence", label: "Improve our website and online presence" },
+    { value: "ai_discovery", label: "Get discovered through AI tools such as ChatGPT" },
+    { value: "lead_response_followup", label: "Respond to new leads faster and improve follow-up" },
+    { value: "lead_conversion", label: "Turn more inquiries into customers" },
+    { value: "reviews_referrals", label: "Generate more reviews and referrals" },
+    { value: "customer_engagement", label: "Keep existing customers engaged" },
+    { value: "revenue_gaps", label: "Understand where we're losing revenue" },
+    { value: "connected_systems", label: "Connect or automate our business systems" },
+    { value: "not_sure", label: "Not sure. Help me identify the biggest opportunity" },
   ],
-  privacyDraft:
-    "By submitting this form, you agree that GrowthWorks Systems may contact you about your inquiry. We use the information you provide to respond and coordinate follow-up. Please do not submit sensitive personal information.",
-  successTitle: "Thanks. Your request has been received.",
-  successBody:
-    "GrowthWorks Systems will use the details you provided to coordinate the appropriate follow-up.",
-  errorMessage: "We could not send your request. Please try again.",
+  inquiryDisclosure:
+    "By continuing, you agree that GrowthWorks Systems LLC may use the information you provide to review your inquiry and follow up about your business needs.",
+  stepTwoDisclosure:
+    "We use these details to better understand your business and determine the most appropriate follow-up.",
+  captureError:
+    "We couldn't confirm that your details were saved. Please try again.",
+  qualificationError:
+    "Your contact details are saved, but we couldn't confirm the additional information was saved. Please try again.",
 };
-
-// Messaging, CTA wording, proof points, and privacy language are centralized so
-// Clayton's final approvals can be applied without rewriting route or form logic.
