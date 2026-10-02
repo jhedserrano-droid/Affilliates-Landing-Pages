@@ -11,17 +11,16 @@ type Props = {
 
 const canonicalPath = "/Clayton";
 
+// Case-normalizing redirects read request-time query parameters. Keep this
+// owner segment dynamic so fallback paths never switch from static to dynamic.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Clayton | GrowthWorks Systems",
   description: "Start a business growth conversation with Clayton at GrowthWorks Systems. Share your business needs through our focused business review.",
   alternates: { canonical: `https://gbp.growthworks-systems.com${canonicalPath}` },
   robots: { index: false, follow: false },
 };
-
-// One explicit owner, not a user-controlled portrait or affiliate registry entry.
-export function generateStaticParams() {
-  return [{ owner: "Clayton" }];
-}
 
 export default async function OwnerLandingPage({ params, searchParams }: Props) {
   const { owner } = await params;
