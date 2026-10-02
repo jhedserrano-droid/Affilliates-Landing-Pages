@@ -19,7 +19,7 @@ export const landingContent = {
     kicker: "Step 2 of 3",
     title: "What would you like us to know about your business?",
     body:
-      "Thanks. We've saved your contact details. A little more context will help GrowthWorks Systems understand your priorities and prepare the right follow-up.",
+      "Next, a little more context will help GrowthWorks Systems understand your priorities and prepare the right follow-up.",
     helper:
       "Share what you can. Choose Not sure if you would like help identifying where to start.",
     submit: "Send Business Details",
