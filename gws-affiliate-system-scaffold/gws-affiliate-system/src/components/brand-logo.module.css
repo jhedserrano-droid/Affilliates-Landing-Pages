@@ -1,29 +1,24 @@
-/* Keep the supplied dark-ink logo legible without recoloring it. */
+/* No tile, backing, recoloring or inversion. The asset itself has transparency. */
 .tile {
   display: inline-block;
   flex: 0 0 auto;
   width: 148px;
   margin-block: 12px;
-  padding: 8px;
+  padding: 0;
   line-height: 0;
-  background: #f3f0df;
-  border: 1px solid #d5d2c5;
+  background: transparent;
+  border: 0;
   border-radius: 0;
 }
-
 .image {
   display: block;
   width: 100%;
   height: auto;
   object-fit: contain;
-  filter: none;
+  /* A fine edge shadow keeps the dark original artwork discernible, not a box. */
+  filter: drop-shadow(0 0 .65px rgba(243, 240, 223, .6));
 }
-
-.compact {
-  width: 112px;
-  margin-block: 16px;
-}
-
+.compact { width: 112px; margin-block: 16px; }
 @media (max-width: 540px) {
   .tile { width: 120px; }
   .compact { width: 112px; margin-block: 0 8px; }

@@ -9,6 +9,13 @@ export type LeadPayload = {
   requestedRoute: string;
   submittedAt: string;
   referrer: string;
+  consent: {
+    policyAccepted: true;
+    recordedAt: string;
+    privacyPolicyUrl: string;
+    termsUrl: string;
+    noticeVersion: string;
+  };
   utm: {
     source: string;
     medium: string;
@@ -32,11 +39,7 @@ export function normalizeText(value: unknown, maxLength = 500) {
 
 export function normalizeStringArray(value: unknown, maxItems = 20, maxLength = 120) {
   if (!Array.isArray(value)) return [];
-
-  return value
-    .slice(0, maxItems)
-    .map((item) => normalizeText(item, maxLength))
-    .filter(Boolean);
+  return value.slice(0, maxItems).map((item) => normalizeText(item, maxLength)).filter(Boolean);
 }
 
 export function isValidEmail(value: string) {
@@ -45,11 +48,6 @@ export function isValidEmail(value: string) {
 
 export function isValidHttpUrl(value: string) {
   if (!value) return true;
-
-  try {
-    const url = new URL(value);
-    return url.protocol === "http:" || url.protocol === "https:";
-  } catch {
-    return false;
-  }
+  try { const url = new URL(value); return url.protocol === "http:" || url.protocol === "https:"; }
+  catch { return false; }
 }

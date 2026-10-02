@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./experience.css";
 
 export const metadata: Metadata = {
   title: "GrowthWorks Systems | Business Growth Review",
