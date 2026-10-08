@@ -39,7 +39,15 @@ export const claytonFallback = {
   attributionOwner: "clayton",
 };
 
+export const leighOwner = {
+  code: "leigh",
+  status: "active" as const,
+  attributionOwner: "leigh",
+};
+
 export function resolveAffiliate(code?: string | null) {
+  if (code === leighOwner.code) return leighOwner;
+
   const slot = getAffiliateSlot(code);
 
   // Existing scaffold fallback behavior is intentionally retained.
