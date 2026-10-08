@@ -67,3 +67,14 @@ html { scrollbar-gutter: stable; }
   .funnel-dialog::backdrop { animation: none; }
 }
 @media (forced-colors: active) { .policy-consent input, .funnel-dialog, .thank-you-card { border: 1px solid CanvasText; } }
+
+
+/* Mavis-native lead capture is embedded inside the existing landing-page shell. */
+.mavis-capture { min-width: 0; }
+.mavis-form-embed { min-height: 620px; width: 100%; }
+.mavis-form-embed iframe { display: block; width: 100%; min-height: 720px; border: 0; background: transparent; }
+.mavis-capture .form-error a { color: var(--cream); }
+@media (max-width: 540px) {
+  .mavis-form-embed { min-height: 690px; }
+  .mavis-form-embed iframe { min-height: 790px; }
+}

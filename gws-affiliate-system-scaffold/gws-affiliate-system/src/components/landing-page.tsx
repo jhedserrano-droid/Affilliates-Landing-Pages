@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { BrandLogo } from "@/components/brand-logo";
-import { LeadForm } from "@/components/lead-form";
+import { MavisLeadCapture } from "@/components/mavis-lead-capture";
 import { landingContent } from "@/lib/content";
 
 type Props = { attributionCode: string; routePath: string; heroSupplement?: ReactNode };
@@ -61,7 +61,7 @@ export function LandingPage({ attributionCode, routePath, heroSupplement }: Prop
           </section>
 
           <section className="capture-panel" id="inquiry" aria-label="Business inquiry">
-            <LeadForm attributionCode={attributionCode} routePath={routePath} />
+            <MavisLeadCapture />
             <div className="panel-caption" aria-hidden="true"><span>GrowthWorks Systems</span><span>Business inquiry</span></div>
           </section>
         </div>
