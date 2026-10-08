@@ -221,7 +221,7 @@ export function LeadForm({ attributionCode, routePath }: Props) {
               <fieldset className="interest-fieldset"><legend>Where would you like help?</legend><p>{landingContent.stepTwo.helper}</p><div className="interest-grid">
                 {landingContent.interests.map((interest) => {
                   const selected = selectedInterests.includes(interest.value);
-                  return <label className={selected ? "interest-card is-selected" : "interest-card"} key={interest.value}><input type="checkbox" name="interest" value={interest.value} checked={selected} onChange={() => toggleInterest(interest.value)} /><span className="interest-check" aria-hidden="true">{selected ? "\u2713" : "+"}</span><span>{interest.label}</span></label>;
+                  return <label className={selected ? "interest-card is-selected" : "interest-card"} key={interest.value}><input type="checkbox" name="interest" value={interest.value} checked={selected} onChange={() => toggleInterest(interest.value)} /><span className="interest-check" aria-hidden="true">{selected ? "\u2713" : ""}</span><span>{interest.label}</span></label>;
                 })}
               </div></fieldset>
               <p className="qualification-note">{landingContent.stepTwoDisclosure}</p>
