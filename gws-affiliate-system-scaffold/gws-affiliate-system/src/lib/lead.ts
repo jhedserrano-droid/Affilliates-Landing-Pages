@@ -1,7 +1,13 @@
+export const LEAD_PAYLOAD_SCHEMA_VERSION = "gws-lead-v1" as const;
+
 export type LeadPayload = {
+  schemaVersion: typeof LEAD_PAYLOAD_SCHEMA_VERSION;
+  firstName: string;
+  lastName: string;
+  fullName: string;
+  businessName: string;
   businessInformation: string;
   websiteUrl: string;
-  fullName: string;
   email: string;
   phone: string;
   attributionCode: string;
@@ -23,7 +29,7 @@ export type LeadPayload = {
     term: string;
     content: string;
   };
-  qualification?: {
+  qualification: {
     businessName: string;
     businessType: string;
     teamSize: string;

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { resolveAffiliate } from "@/lib/affiliates";
-import { isValidEmail, isValidHttpUrl, normalizeStringArray, normalizeText, type LeadPayload } from "@/lib/lead";
+import { isValidEmail, isValidHttpUrl, LEAD_PAYLOAD_SCHEMA_VERSION, normalizeStringArray, normalizeText, type LeadPayload } from "@/lib/lead";
 import { PRIVACY_POLICY_URL, TERMS_URL, POLICY_NOTICE_VERSION, INQUIRY_RECEIPT_COOKIE } from "@/lib/site";
 
 type InquiryRequest = {
@@ -49,13 +49,34 @@ export async function POST(request: Request) {
   const resolved = resolveAffiliate(requestedCode === "general" ? null : requestedCode);
   const submittedAt = new Date().toISOString();
   const lead: LeadPayload = {
+    schemaVersion: LEAD_PAYLOAD_SCHEMA_VERSION,
+    firstName,
+    lastName,
+    fullName: `${firstName} ${lastName}`.trim(),
+    businessName,
     businessInformation: [businessName, businessType ? `Business type: ${businessType}` : "", priority ? `Priority: ${priority}` : ""].filter(Boolean).join(" | "),
-    websiteUrl, fullName: `${firstName} ${lastName}`.trim(), email, phone,
-    attributionCode: resolved.code, attributionOwner: resolved.attributionOwner,
-    requestedRoute: normalizeText(body.routePath, 300) || "/", submittedAt,
+    websiteUrl,
+    email,
+    phone,
+    attributionCode: resolved.code,
+    attributionOwner: resolved.attributionOwner,
+    requestedRoute: normalizeText(body.routePath, 300) || "/",
+    submittedAt,
     referrer: normalizeText(body.referrer, 600),
-    consent: { policyAccepted: true, recordedAt: submittedAt, privacyPolicyUrl: PRIVACY_POLICY_URL, termsUrl: TERMS_URL, noticeVersion: POLICY_NOTICE_VERSION },
-    utm: { source: normalizeText(body.utmSource, 160), medium: normalizeText(body.utmMedium, 160), campaign: normalizeText(body.utmCampaign, 200), term: normalizeText(body.utmTerm, 200), content: normalizeText(body.utmContent, 200) },
+    consent: {
+      policyAccepted: true,
+      recordedAt: submittedAt,
+      privacyPolicyUrl: PRIVACY_POLICY_URL,
+      termsUrl: TERMS_URL,
+      noticeVersion: POLICY_NOTICE_VERSION,
+    },
+    utm: {
+      source: normalizeText(body.utmSource, 160),
+      medium: normalizeText(body.utmMedium, 160),
+      campaign: normalizeText(body.utmCampaign, 200),
+      term: normalizeText(body.utmTerm, 200),
+      content: normalizeText(body.utmContent, 200),
+    },
     qualification: { businessName, businessType, teamSize, serviceArea, priority, interests },
   };
   const handoffUrl = process.env.LEAD_HANDOFF_WEBHOOK_URL;
