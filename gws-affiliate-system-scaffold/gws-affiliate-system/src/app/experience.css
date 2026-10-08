@@ -46,7 +46,6 @@ html { scrollbar-gutter: stable; }
 .thank-you-card .success-mark { margin-bottom: 28px; }
 .thank-you-kicker { color: var(--subtle); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; margin: 0 0 16px; }
 .thank-you-body { color: var(--muted); font-size: 14px; line-height: 1.9; margin: 23px 0 0; }
-.thank-you-review-note { padding: 12px 15px; border-left: 2px solid var(--maroon); color: var(--muted); background: #1e1e1e; font-size: 12px; line-height: 1.8; }
 .thank-you-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 28px; }
 .thank-you-actions .form-submit { width: auto; flex: 1 1 240px; margin: 0; text-decoration: none; }
 .thank-you-actions .form-back { margin: 0; }

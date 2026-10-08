@@ -24,7 +24,6 @@ export default async function ThankYouPage() {
           <p className="thank-you-kicker">{received ? "Step 3 of 3 / Complete" : "GrowthWorks Systems"}</p>
           <h1 id="thank-you-title">{received ? landingContent.stepThree.title : "Thank you for your interest."}</h1>
           <p className="thank-you-body">{received ? landingContent.stepThree.body : "Explore how GrowthWorks Systems helps businesses attract customers, strengthen follow-up and keep relationships moving."}</p>
-          {!received ? <p className="thank-you-review-note">Viewing this page directly does not confirm a form submission. Return to the inquiry form to send your information.</p> : null}
           <ThankYouRedirect />
           <a className="thank-you-return" href="/">Return to the inquiry form</a>
         </section>
