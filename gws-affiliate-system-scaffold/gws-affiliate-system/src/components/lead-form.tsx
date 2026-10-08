@@ -155,9 +155,7 @@ export function LeadForm({ attributionCode, routePath }: Props) {
       });
       const result = await response.json().catch(() => null);
       if (!response.ok || result?.ok !== true || result?.accepted !== true) {
-        setError(result?.error === "handoff_not_configured" || result?.preview
-          ? "This review build is not connected to lead capture yet. Your information has not been sent."
-          : "We couldn't confirm your submission. Your details are still here so you can try again.");
+        setError("We couldn't confirm your submission. Your details are still here so you can try again.");
         setState("error"); submitting.current = false; return;
       }
       // The API sets a short-lived receipt cookie only after an accepted handoff.

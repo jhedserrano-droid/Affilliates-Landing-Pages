@@ -20,10 +20,6 @@ export function LandingPage({ attributionCode, routePath, heroSupplement }: Prop
   return (
     <div className="shell" id="top">
       <a className="skip-link" href="#inquiry">Skip to the inquiry form</a>
-      <div className="review-notice" role="note">
-        Design review build. Native Mavis capture is not connected; Step 1 is not saved to CRM.
-      </div>
-
       <header className="site-header">
         <div className="container nav-shell">
           <a className="brand-lockup" href="#top" aria-label="GrowthWorks Systems">
