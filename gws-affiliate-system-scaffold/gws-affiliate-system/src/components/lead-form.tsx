@@ -26,7 +26,10 @@ function Progress({ step }: { step: number }) {
 }
 
 function formValues(form: HTMLFormElement) {
-  return Object.fromEntries(Array.from(new FormData(form).entries()).map(([key, value]) => [key, String(value)]));
+  return Object.fromEntries(Array.from(new FormData(form).entries()).map(([key, value]) => {
+    const normalized = String(value);
+    return [key, key === "websiteUrl" && normalized.trim() === "https://" ? "" : normalized];
+  }));
 }
 
 export function LeadForm({ attributionCode, routePath }: Props) {
@@ -209,10 +212,10 @@ export function LeadForm({ attributionCode, routePath }: Props) {
             <fieldset className="qualification-fields" disabled={state === "submitting"}>
               <legend className="sr-only">Business details</legend>
               <div className="field-grid">
-                <label className="field-shell"><span>Business type <small>optional</small></span><input name="businessType" maxLength={160} placeholder="Industry or customers you serve" /></label>
+                <label className="field-shell"><span>Business type <small>optional</small></span><select name="businessType" defaultValue=""><option value="">Choose an option</option><option value="home_services">Home Services</option><option value="financial_advisors_rias">Financial Advisors &amp; RIAs</option><option value="insurance_agencies">Insurance Agencies</option><option value="other_founder_led_service_business">Other founder-led service business</option></select></label>
                 <label className="field-shell"><span>Team size <small>optional</small></span><select name="teamSize" defaultValue=""><option value="">Choose an option</option><option value="just_me">Just me</option><option value="2_5">2 to 5</option><option value="6_10">6 to 10</option><option value="11_25">11 to 25</option><option value="26_50">26 to 50</option><option value="51_plus">51 or more</option><option value="prefer_not_to_say">Prefer not to say</option></select></label>
-                <label className="field-shell"><span>Service area <small>optional</small></span><input name="serviceArea" maxLength={200} placeholder="City, region or wider market" /></label>
-                <label className="field-shell"><span>Website <small>optional</small></span><input name="websiteUrl" type="url" pattern="https?://.+" title="Enter a complete http:// or https:// website address." maxLength={300} placeholder="https://" /></label>
+                <label className="field-shell"><span>Service area <small>optional</small></span><select name="serviceArea" defaultValue=""><option value="">Choose an option</option><option value="local_city">Local / city service area</option><option value="metro_multi_city">Metro / multi-city service area</option><option value="regional_multi_county">Regional / multi-county service area</option><option value="statewide">Statewide</option><option value="multi_state">Multi-state</option><option value="national">National</option><option value="not_sure">Not sure yet</option></select></label>
+                <label className="field-shell"><span>Other website <small>optional</small></span><input name="websiteUrl" type="url" pattern="https?://.+" title="Enter your website domain after https://." maxLength={300} defaultValue="https://" inputMode="url" /></label>
                 <label className="field-shell field-wide"><span>What would you most like to improve? <small>optional</small></span><textarea name="priority" maxLength={800} placeholder="Tell us the main goal or challenge in a sentence or two." /></label>
               </div>
               <fieldset className="interest-fieldset"><legend>Where would you like help?</legend><p>{landingContent.stepTwo.helper}</p><div className="interest-grid">

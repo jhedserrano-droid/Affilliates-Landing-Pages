@@ -107,8 +107,8 @@ h1 { margin: 0; color: var(--cream); font-size: clamp(46px, 5.45vw, 84px); font-
 .interest-card.is-selected { border-color: var(--cream); background: #202020; box-shadow: inset 3px 0 0 var(--maroon); }
 .interest-card input { position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip-path: inset(50%); }
 .interest-card:focus-within { outline: 2px solid var(--cream); outline-offset: 3px; }
-.interest-check { flex: 0 0 18px; height: 18px; display: grid; place-items: center; margin-top: 1px; border: 1px solid #92928b; color: var(--cream); font-size: 12px; line-height: 1; }
-.interest-card.is-selected .interest-check { background: var(--maroon); border-color: var(--maroon); color: var(--white); }
+.interest-check { flex: 0 0 18px; height: 18px; display: grid; place-items: center; margin-top: 1px; border: 1px solid #92928b; background: transparent; color: transparent; font-size: 13px; font-weight: 800; line-height: 1; }
+.interest-card.is-selected .interest-check { background: transparent; border-color: var(--maroon); color: var(--maroon); }
 .qualification-note { margin: 20px 0 0; color: var(--muted); font-size: 11px; line-height: 1.8; }
 .form-actions { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; }
 .form-back { align-self: end; min-height: 54px; margin-top: 21px; padding: 12px 17px; border: 1px solid var(--field-line); border-radius: 0; background: transparent; color: var(--cream); font-size: 12px; }
